@@ -1,0 +1,17 @@
+/* prettier-ignore */
+:root {
+    --size: {
+        xl: 40px;
+        l: 32px;
+        m: 28px;
+        s: 20px;
+    };
+    --color: {
+        primary: black;
+    }
+}
+
+.size\.--size {
+  width: var(--size);
+  height: var(--size);
+}

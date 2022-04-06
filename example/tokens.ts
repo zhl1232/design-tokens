@@ -1,8 +1,7 @@
+import { css } from "atomico";
 import { composed, tokens, classes } from "../src/core";
 
-const { sheet } = document.querySelector<HTMLStyleElement>("#style");
-
-composed(
+export const designTokens = composed(
   tokens(
     {
       size: {
@@ -11,6 +10,7 @@ composed(
         m: "28px",
         s: "20px",
         xs: "16px",
+        xxs: "12px",
       },
       color: {
         primary: {
@@ -27,13 +27,37 @@ composed(
             m: "28px",
             s: "20px",
             xs: "16px",
+            xxs: "12px",
           },
         },
+      },
+      media: {
+        xl: "(min-width: 320px)",
       },
     },
     "ds"
   ),
   classes()
-)(sheet);
+);
 
-console.log([...sheet.cssRules]);
+export default designTokens(css`
+  .row {
+    display: flex;
+  }
+  .gap.--size {
+    gap: var(--size);
+  }
+  .size.--size {
+    width: var(--size);
+    height: var(--size);
+  }
+  .font.size.--size {
+    font-size: var(--size);
+  }
+  .color.--color {
+    color: var(--color);
+  }
+  .place.center {
+    place-content: center;
+  }
+`);

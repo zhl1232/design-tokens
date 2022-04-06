@@ -4,8 +4,14 @@ type TokenValue =
       [prop: string]: TokenValue;
     };
 
-export interface Tokens {
+export interface GenericTokens {
   [token: string]: TokenValue;
+}
+
+export interface Tokens extends GenericTokens {
+  media?: {
+    [media: string]: string;
+  };
 }
 
 export const mapTokens = (
@@ -25,16 +31,19 @@ export const mapTokens = (
   return cssText;
 };
 
-export const insertRule = (sheet: CSSStyleSheet, cssRules: string) =>
-  sheet.insertRule(cssRules, sheet.cssRules.length);
+export const insertRule = (
+  sheet: CSSStyleSheet,
+  cssRules: string,
+  index = sheet.cssRules.length
+) => sheet.insertRule(cssRules, index);
 
 function applyTokens(
   sheet: CSSStyleSheet,
   tokens: Tokens = {},
   prefix: string
 ) {
-  const { variation, ...currentTokens } = tokens;
-
+  const { variation, media, ...currentTokens } = tokens;
+  let i = 0;
   const createRule = (selector: string, tokens: Tokens, variation = "") =>
     insertRule(
       sheet,
@@ -48,7 +57,8 @@ function applyTokens(
                 }--${index}, ${value})`
               : value
           };`
-      )}}`
+      )}}`,
+      i++
     );
 
   const selector = ":host";

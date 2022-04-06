@@ -5,7 +5,8 @@ export * from "./apply-classes";
 
 export const composed =
   (...args: ((sheet: CSSStyleSheet, options?: any) => any)[]) =>
-  (sheet: CSSStyleSheet, options?: Tokens) => {
+  (target: CSSStyleSheet | HTMLStyleElement, options?: Tokens) => {
+    let sheet = target instanceof HTMLStyleElement ? target.sheet : target;
     args.reduce((value, fn) => fn(sheet, value), options);
-    return sheet;
+    return target;
   };

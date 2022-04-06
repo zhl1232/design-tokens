@@ -1,8 +1,0 @@
-.size.--size {
-  width: var(--size);
-  height: var(--size);
-}
-
-.color.--color {
-  color: var(--color);
-}

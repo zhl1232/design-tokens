@@ -22,35 +22,31 @@ For this example we will use Atomico, by the way you can use `@atomico/design-to
 import { css } from "atomico";
 import { composed, tokens } from "@atomico/design-tokens";
 
-const designTokens = composed(tokens("--my-ds"));
-
-export const tokensSize = designTokens(
-  css`
-    :host {
-      --size: {
-        xl: 40px;
-        l: 32px;
-        m: 28px;
-        s: 20px;
-      }
-    }
-  `
+const designTokens = composed(
+  tokens(
+    {
+      size: {
+        xl: "40px",
+        l: "32px",
+        m: "28px",
+        s: "20px",
+      },
+    },
+    "ds"
+  )
 );
+
+export const tokensSize = designTokens(css``);
 ```
 
-What happened?:
-
-1. `const designTokens = composed(tokens("--my-ds"));` : create a function that manipulates the CSSStyleSheet instance.
-2. `export const tokensSize`: exports the CSS StyleSheet already manipulated by `designTokens`.
-
-internally the CSS result is as follows:
+The result of the CSS will be the following:
 
 ```css
 :host {
-  --size-xl: var(--my-ds--size-xl, 40px);
-  --size-l: var(--my-ds--size-l, 32px);
-  --size-m: var(--my-ds--size-m, 28px);
-  --size-s: var(--my-ds--size-s, 20px);
+  --size-xl: var(--ds--size-xl, 40px);
+  --size-l: var(--ds--size-l, 32px);
+  --size-m: var(--ds--size-m, 28px);
+  --size-s: var(--ds--size-s, 20px);
 }
 ```
 
@@ -76,20 +72,20 @@ I am personally a fan of custom properties, but their use would become repetitiv
 import { css } from "atomico";
 import { composed, tokens, classes } from "@atomico/design-tokens";
 
-const designTokens = composed(tokens("--my-ds"), classes());
+const designTokens = composed(
+  classes({
+    size: {
+      xl: "40px",
+      l: "32px",
+      m: "28px",
+      s: "20px",
+    },
+  })
+);
 
 export const tokensSize = designTokens(
   css`
-    :host {
-      --size: {
-        xl: 40px;
-        l: 32px;
-        m: 28px;
-        s: 20px;
-      }
-    }
-
-    .gap\.--size {
+    .gap.--size {
       gap: var(--size);
     }
   `
@@ -99,13 +95,6 @@ export const tokensSize = designTokens(
 The `classes` middleware will parse the CSSStyleSheet to relate the custom propeprtiy `--size` as a class of `.gap`, internally the `css` will be as follows:
 
 ```css
-:host {
-  --size-xl: var(--my-ds--size-xl, 40px);
-  --size-l: var(--my-ds--size-l, 32px);
-  --size-m: var(--my-ds--size-m, 28px);
-  --size-s: var(--my-ds--size-s, 20px);
-}
-
 .gap\.xl {
   gap: var(--size-xl);
 }

@@ -5,11 +5,11 @@ function component() {
   return (
     <host shadowDom>
       <div class="row gap.xl">
-        <button class="color.primary font.size.xxs size.xl">xl</button>
-        <button class="color.primary font.size.xxs size.l">l</button>
-        <button class="color.primary font.size.xxs size.m">m</button>
-        <button class="color.primary font.size.xxs size.s">s</button>
-        <button class="color.primary font.size.xxs size.xs">xs</button>
+        <button class="color.bg.primary.60 size.xl"></button>
+        <button class="color.bg.primary.60 size.l"></button>
+        <button class="color.bg.primary.60 size.m"></button>
+        <button class="color.bg.primary.60 size.s"></button>
+        <button class="color.bg.primary.60 size.xs"></button>
       </div>
     </host>
   );
@@ -20,6 +20,7 @@ component.styles = [
   css`
     button {
       padding: 0px;
+      border: none;
     }
   `,
 ];

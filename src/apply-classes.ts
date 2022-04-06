@@ -3,7 +3,7 @@ import { Tokens, insertRule, mapTokens } from "./apply-tokens";
 function applyClasses(sheet: CSSStyleSheet, tokens: Tokens) {
   const { cssRules } = sheet;
   const mediaRules = [];
-  const { media, variations, ...currentTokens } = tokens;
+  const { media, variation, ...currentTokens } = tokens;
 
   for (let i = 0; i < cssRules.length; i++) {
     const rule = cssRules[i];

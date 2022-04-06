@@ -22,12 +22,12 @@ export const designTokens = composed(
       variation: {
         small: {
           size: {
-            xl: "40px",
-            l: "32px",
-            m: "28px",
-            s: "20px",
-            xs: "16px",
-            xxs: "12px",
+            xl: "32px",
+            l: "28px",
+            m: "20px",
+            s: "16px",
+            xs: "12px",
+            xxs: "8px",
           },
         },
       },
@@ -56,5 +56,8 @@ export default designTokens(css`
   }
   .color.--color {
     color: var(--color);
+  }
+  .color.bg.--color {
+    background: var(--color);
   }
 `);

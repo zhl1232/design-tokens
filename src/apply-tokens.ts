@@ -66,7 +66,7 @@ function applyTokens(
   createRule(selector, currentTokens);
 
   for (let prop in variation as Tokens) {
-    createRule(`${selector}[${prop}]`, variation[prop], prop);
+    createRule(`${selector}([${prop}])`, variation[prop], prop);
   }
 
   return tokens;

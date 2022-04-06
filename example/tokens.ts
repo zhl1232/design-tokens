@@ -57,7 +57,4 @@ export default designTokens(css`
   .color.--color {
     color: var(--color);
   }
-  .place.center {
-    place-content: center;
-  }
 `);

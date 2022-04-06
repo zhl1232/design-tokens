@@ -1,53 +1,67 @@
+type TokenValue =
+  | string
+  | {
+      [prop: string]: TokenValue;
+    };
+
 export interface Tokens {
-  [token: string]: {
-    [prop: string]: string;
-  };
+  [token: string]: TokenValue;
 }
+
+export const mapTokens = (
+  tokens: Tokens,
+  fn: (value: string, index: string) => string,
+  current = ""
+) => {
+  let cssText = "";
+  for (let prop in tokens) {
+    let next = (current ? current + "-" : "") + prop;
+    if (typeof tokens[prop] === "object") {
+      cssText += mapTokens(tokens[prop] as any, fn, next);
+    } else {
+      cssText += fn(tokens[prop] as string, next);
+    }
+  }
+  return cssText;
+};
+
+export const insertRule = (sheet: CSSStyleSheet, cssRules: string) =>
+  sheet.insertRule(cssRules, sheet.cssRules.length);
 
 function applyTokens(
   sheet: CSSStyleSheet,
-  prefix: string = "",
-  tokens: Tokens = {}
+  tokens: Tokens = {},
+  prefix: string
 ) {
-  const { length } = sheet.cssRules;
-  for (let i = 0; i < length; i++) {
-    const rule = sheet.cssRules[i];
-    if (
-      rule instanceof CSSStyleRule &&
-      /^:(host|root)/.test(rule.selectorText)
-    ) {
-      const { selectorText, style } = rule;
-      let cssText = "";
-      for (let si = 0; si < style.length; si++) {
-        const rootProp = style[si];
-        const value = style.getPropertyValue(rootProp);
+  const { variation, ...currentTokens } = tokens;
 
-        value.replace(
-          /([\w\-]+) *: *([^;]+);/g,
-          (all: string, prop: string, value: string) => {
-            const cssProp = `${rootProp}-${prop}`;
-            const idProp = rootProp.replace(/^-+/, "");
-            tokens[idProp] = tokens[idProp] || {};
-            tokens[idProp][prop] = value;
-            cssText += `${cssProp}: ${
-              selectorText.startsWith(":root")
-                ? value
-                : `var(${prefix}${cssProp}, ${value})`
-            };`;
-            return "";
-          }
-        );
-      }
-      if (cssText) {
-        sheet.deleteRule(i);
-        sheet.insertRule(`${selectorText}{${cssText}}`, i);
-      }
-    } else {
-      break;
-    }
+  const createRule = (selector: string, tokens: Tokens, variation = "") =>
+    insertRule(
+      sheet,
+      `${selector}{${mapTokens(
+        tokens,
+        (value, index) =>
+          `--${index}:${
+            prefix
+              ? `var(--${prefix}${
+                  variation ? "-" + variation : ""
+                }--${index}, ${value})`
+              : value
+          };`
+      )}}`
+    );
+
+  const selector = ":host";
+
+  createRule(selector, currentTokens);
+
+  for (let prop in variation as Tokens) {
+    createRule(`${selector}[${prop}]`, variation[prop], prop);
   }
+
   return tokens;
 }
 
-export const tokens = (prefix?: string) => (cssSheets: CSSStyleSheet) =>
-  applyTokens(cssSheets, prefix);
+export const tokens =
+  (token: Tokens, prefix: string) => (cssSheets: CSSStyleSheet) =>
+    applyTokens(cssSheets, token, prefix);

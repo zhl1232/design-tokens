@@ -20,7 +20,7 @@ export const designTokens = composed(
         },
       },
       variation: {
-        small: {
+        [`size=small`]: {
           size: {
             xl: "32px",
             l: "28px",

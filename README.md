@@ -4,7 +4,7 @@ Hi I am [@uppercod](https://twitter.com/uppercod) author of [atomico](http://git
 
 With `@atomico/design-tokens` you can:
 
-1. [resolve scalability and maintenance issues with your design tokens](#resolve-scalability-and-maintenance-issues-with-your-design-tokens).
+1. [Resolve scalability and maintenance issues with your design tokens](#resolve-scalability-and-maintenance-issues-with-your-design-tokens).
 2. [Create utility classes from design tokens](#create-utility-classes-to-be-used-internally-by-your-component-system).
 
 ## Resolve scalability and maintenance issues with your design tokens.
@@ -36,7 +36,7 @@ const designTokens = composed(
   )
 );
 
-export const tokensSize = designTokens(css``);
+export const tokens = designTokens(css``);
 ```
 
 The result of the CSS will be the following:
@@ -52,7 +52,7 @@ The result of the CSS will be the following:
 
 This is a technique that I have created to improve the scalability of design tokens, with it you can:
 
-1. edit the token through custom properties accessible from root, example:
+1. edit token globally using custom properties:
 
 ```css
 :root {
@@ -60,9 +60,32 @@ This is a technique that I have created to improve the scalability of design tok
 }
 ```
 
-This is also applicable within a selector.
+> This is also applicable within a selector.
 
-2. Simplify maintenance, since your components will use the custom properties without a prefix.
+2. Simplify maintenance, since your components will use the custom properties without a prefix:
+
+```tsx
+import { c, css } from "atomico";
+import tokens from "./tokens";
+function button() {
+  return (
+    <host shadowDom>
+      <slot />
+    </host>
+  );
+}
+
+button.styles = [
+  tokens,
+  css`
+    :host {
+      height: var(--size-xl);
+      background: var(--color-primary-60);
+      padding: var(--size-xxs) var(--size-xs);
+    }
+  `,
+];
+```
 
 ## Create utility classes to be used internally by your component system.
 

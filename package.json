@@ -1,33 +1,36 @@
 {
-  "name": "atomico-base",
-  "description": "a repo to start with atomico",
-  "meta": {
-    "title": "Started - Atomico + Vite(JS,JSX,TS,TSX)",
-    "description": "Hassle-free starter template, perfect for starting with Atomico",
-    "branch": "https://github.com/atomicojs/atomico/tree/2-started/"
-  },
-  "workspaces": [
-    "src/**/*",
-    "site"
-  ],
-  "version": "0.0.0",
-  "private": true,
+  "name": "@atomico/design-tokens",
+  "description": "Tools to improve the use of layout tokens in webcomponents",
   "type": "module",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/atomicojs/store.git"
+  },
+  "bugs": {
+    "url": "https://github.com/atomicojs/store/issues"
+  },
+  "homepage": "https://github.com/atomicojs/store#readme",
+  "author": "UpperCod",
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "test": "wtr src/**/*.test.js --node-resolve",
-    "exports": "exports src/components.js --exports --types --main components",
+    "test": "wtr test/**/*.test.{ts,js,jsx,tsx} --node-resolve",
+    "exports": "exports src/core.ts --exports --types --main test",
     "prepublishOnly": "npm run test && npm run exports",
     "create-component": "scaff template/component-jsx src"
   },
-  "dependencies": {
-    "atomico": "latest"
-  },
   "devDependencies": {
+    "atomico": "latest",
     "@atomico/scaffold": "^0.2.0",
+    "@esm-bundle/chai": "^4.3.4-fix.0",
     "@uppercod/vite-meta-url": "latest",
     "@uppercod/vite-meta-url-load-css": "latest",
-    "vite": "latest"
+    "@web/test-runner": "^0.13.27",
+    "vite": "latest",
+    "vite-web-test-runner-plugin": "^0.1.0"
   }
 }

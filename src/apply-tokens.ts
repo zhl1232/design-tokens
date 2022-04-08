@@ -69,7 +69,7 @@ function applyTokens(
     createRule(
       `${selector}([${prop}])`,
       variation[prop],
-      prop.replace(/=/, "-")
+      prop.replace(/[^\w]+/g, "-")
     );
   }
 

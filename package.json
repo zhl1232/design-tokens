@@ -19,7 +19,7 @@
     "start": "vite",
     "build": "vite build",
     "test": "wtr test/**/*.test.{ts,js,jsx,tsx} --node-resolve",
-    "exports": "exports src/core.ts --exports --types --main test",
+    "exports": "exports src/core.ts --exports --types --main core",
     "prepublishOnly": "npm run test && npm run exports"
   },
   "devDependencies": {

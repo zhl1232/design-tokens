@@ -1,6 +1,6 @@
 {
   "name": "@atomico/design-tokens",
-  "description": "Tools to improve the use of layout tokens in webcomponents",
+  "description": "Tools to improve the use of design tokens in webcomponents",
   "type": "module",
   "version": "1.0.0",
   "publishConfig": {

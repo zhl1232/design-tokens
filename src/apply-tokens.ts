@@ -21,11 +21,15 @@ export const mapTokens = (
 ) => {
   let cssText = "";
   for (let prop in tokens) {
-    let next = (current ? current + "-" : "") + prop;
-    if (typeof tokens[prop] === "object") {
-      cssText += mapTokens(tokens[prop] as any, fn, next);
+    if (prop == "$set") {
+      cssText += fn(tokens[prop] as string, current);
     } else {
-      cssText += fn(tokens[prop] as string, next);
+      let next = (current ? current + "-" : "") + prop;
+      if (typeof tokens[prop] === "object") {
+        cssText += mapTokens(tokens[prop] as any, fn, next);
+      } else {
+        cssText += fn(tokens[prop] as string, next);
+      }
     }
   }
   return cssText;

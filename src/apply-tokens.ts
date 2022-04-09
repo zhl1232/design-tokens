@@ -21,7 +21,7 @@ export const mapTokens = (
 ) => {
   let cssText = "";
   for (let prop in tokens) {
-    if (prop == "$set") {
+    if (prop == "") {
       cssText += fn(tokens[prop] as string, current);
     } else {
       let next = (current ? current + "-" : "") + prop;

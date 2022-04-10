@@ -1,7 +1,7 @@
 import { css } from "atomico";
-import { composed, tokens, classes } from "../src/core";
+import { compose, tokens, classes } from "../src/core";
 
-export const designTokens = composed(
+export const designTokens = compose(
   tokens(
     {
       size: {

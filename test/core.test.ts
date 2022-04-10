@@ -1,5 +1,5 @@
 import { expect } from "@esm-bundle/chai";
-import { composed, tokens, classes } from "../src/core";
+import { compose, tokens, classes } from "../src/core";
 
 describe("tokens", () => {
   it("default", () => {
@@ -12,7 +12,7 @@ describe("tokens", () => {
        }
     `);
 
-    const designTokens = composed(
+    const designTokens = compose(
       tokens(
         {
           size: {

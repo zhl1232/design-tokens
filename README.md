@@ -2,8 +2,6 @@
 
 `@atomico/design-tokens` makes it easy to use design tokens for webcomponents, thanks to `@atomico/design-tokens` you can maintain scalable and highly modifiable component systems.
 
-> `@atomico/design-tokens` it is based on a pattern devised by [UpperCod](https://twitter.com/uppercod) for defining custom-properties.
-
 With `@atomico/design-tokens` you can:
 
 1. [Resolve scalability and maintenance issues with your design tokens](#resolve-scalability-and-maintenance-issues-with-your-design-tokens).

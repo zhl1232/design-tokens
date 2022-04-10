@@ -3,7 +3,7 @@ import { Tokens } from "./apply-tokens";
 export * from "./apply-tokens";
 export * from "./apply-classes";
 
-export const composed =
+export const compose =
   (...args: ((sheet: CSSStyleSheet, options?: any) => any)[]) =>
   (target: CSSStyleSheet | HTMLStyleElement, options?: Tokens) => {
     let sheet = target instanceof HTMLStyleElement ? target.sheet : target;

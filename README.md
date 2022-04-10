@@ -22,9 +22,9 @@ For this example we will use Atomico, by the way you can use `@atomico/design-to
 
 ```tsx
 import { css } from "atomico";
-import { composed, tokens } from "@atomico/design-tokens";
+import { compose, tokens } from "@atomico/design-tokens";
 
-const designTokens = composed(
+const designTokens = compose(
   tokens(
     {
       size: {
@@ -95,9 +95,9 @@ I am personally a fan of custom properties, but their use would become repetitiv
 
 ```tsx
 import { css } from "atomico";
-import { composed, tokens, classes } from "@atomico/design-tokens";
+import { compose, tokens, classes } from "@atomico/design-tokens";
 
-const designTokens = composed(
+const designTokens = compose(
   classes({
     size: {
       xl: "40px",

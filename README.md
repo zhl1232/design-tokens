@@ -1,6 +1,8 @@
 # @atomico/design-tokens
 
-Hi I am [@uppercod](https://twitter.com/uppercod) author of [atomico](http://github.com/atomicojs/atomico), I want to share with all of you `@atomico/design-tokens` techniques and tools that I have created to simplify the maintenance of design systems in webcomponents.
+`@atomico/design-tokens` makes it easy to use design tokens for webcomponents, thanks to `@atomico/design-tokens` you can maintain scalable and highly modifiable component systems.
+
+> `@atomico/design-tokens` it is based on a pattern devised by [UpperCod](https://twitter.com/uppercod) for defining custom-properties.
 
 With `@atomico/design-tokens` you can:
 

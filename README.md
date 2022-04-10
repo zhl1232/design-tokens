@@ -1,5 +1,7 @@
 # @atomico/design-tokens
 
+[![doc](https://raw.githubusercontent.com/atomicojs/atomico/brand/link-to-doc.svg)](https://atomico.gitbook.io/doc/atomico/atomico-design-tokens) [![Discord](https://raw.githubusercontent.com/atomicojs/atomico/brand/link-to-discord.svg)](https://discord.gg/7z3rNhmkNE)
+
 `@atomico/design-tokens` makes it easy to use design tokens for webcomponents, thanks to `@atomico/design-tokens` you can maintain scalable and highly modifiable component systems.
 
 With `@atomico/design-tokens` you can:

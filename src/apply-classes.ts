@@ -36,7 +36,7 @@ function applyClasses(sheet: CSSStyleSheet, tokens: Tokens) {
       mediaRules.push(rule);
     }
   }
-  for (let prop in media) {
+  for (let prop in media as { [media: string]: string }) {
     insertRule(
       sheet,
       `@media ${media[prop]}{${mediaRules.reduce(

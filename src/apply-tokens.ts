@@ -4,14 +4,8 @@ type TokenValue =
       [prop: string]: TokenValue;
     };
 
-export interface GenericTokens {
+export interface Tokens {
   [token: string]: TokenValue;
-}
-
-export interface Tokens extends GenericTokens {
-  media?: {
-    [media: string]: string;
-  };
 }
 
 export const mapTokens = (

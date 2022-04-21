@@ -5,6 +5,10 @@ export function getSheet(style: CSSStyleSheet | HTMLStyleElement) {
     return style;
   }
 
+  if (style.sheet) {
+    return style.sheet;
+  }
+
   if (!sandbox) {
     sandbox = document.createElement("iframe");
     sandbox.style.display = "none";
@@ -36,15 +40,6 @@ export function insertRule(
   cssRule: string,
   index?: number
 ) {
-  let sheet: CSSStyleSheet;
-  if (target instanceof HTMLStyleElement) {
-    if (!target.sheet) {
-      target.textContent += cssRule;
-      return;
-    }
-    sheet = target.sheet;
-  } else {
-    sheet = target;
-  }
+  let sheet = getSheet(target);
   sheet.insertRule(cssRule, index == null ? sheet.cssRules.length : index);
 }

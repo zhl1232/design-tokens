@@ -56,5 +56,6 @@ function applyClasses(sheet: CSSStyleSheet | HTMLStyleElement, tokens: Tokens) {
 }
 
 export const classes =
-  (localTokens?: Tokens) => (cssSheets: CSSStyleSheet, tokens?: Tokens) =>
+  (localTokens?: Tokens) =>
+  (cssSheets: CSSStyleSheet | HTMLStyleElement, tokens?: Tokens) =>
     applyClasses(cssSheets, { ...tokens, ...localTokens });

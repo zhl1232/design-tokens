@@ -1,4 +1,5 @@
 import { insertRule } from "./utils";
+
 type TokenValue =
   | string
   | {
@@ -70,5 +71,6 @@ function applyTokens(
 }
 
 export const tokens =
-  (token: Tokens, prefix: string) => (cssSheets: CSSStyleSheet) =>
+  (token: Tokens, prefix: string) =>
+  (cssSheets: CSSStyleSheet | HTMLStyleElement) =>
     applyTokens(cssSheets, token, prefix);

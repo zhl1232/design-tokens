@@ -1,7 +1,8 @@
-import { Tokens, insertRule, mapTokens } from "./apply-tokens";
+import { insertRule, getSheet } from "./utils";
+import { Tokens, mapTokens } from "./apply-tokens";
 
-function applyClasses(sheet: CSSStyleSheet, tokens: Tokens) {
-  const { cssRules } = sheet;
+function applyClasses(sheet: CSSStyleSheet | HTMLStyleElement, tokens: Tokens) {
+  const { cssRules } = getSheet(sheet);
   const mediaRules = [];
   const { media, variation, ...currentTokens } = tokens;
 

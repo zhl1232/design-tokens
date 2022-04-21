@@ -1,12 +1,13 @@
 import { Tokens } from "./apply-tokens";
-
+export * from "./utils";
 export * from "./apply-tokens";
 export * from "./apply-classes";
 
 export const compose =
-  (...args: ((sheet: CSSStyleSheet, options?: any) => any)[]) =>
+  (
+    ...args: ((sheet: CSSStyleSheet | HTMLStyleElement, options?: any) => any)[]
+  ) =>
   (target: CSSStyleSheet | HTMLStyleElement, options?: Tokens) => {
-    let sheet = target instanceof HTMLStyleElement ? target.sheet : target;
-    args.reduce((value, fn) => fn(sheet, value), options);
+    args.reduce((value, fn) => fn(target, value), options);
     return target;
   };

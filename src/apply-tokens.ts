@@ -1,3 +1,4 @@
+import { insertRule } from "./utils";
 type TokenValue =
   | string
   | {
@@ -29,14 +30,8 @@ export const mapTokens = (
   return cssText;
 };
 
-export const insertRule = (
-  sheet: CSSStyleSheet,
-  cssRules: string,
-  index = sheet.cssRules.length
-) => sheet.insertRule(cssRules, index);
-
 function applyTokens(
-  sheet: CSSStyleSheet,
+  target: CSSStyleSheet | HTMLStyleElement,
   tokens: Tokens = {},
   prefix: string
 ) {
@@ -44,7 +39,7 @@ function applyTokens(
   let i = 0;
   const createRule = (selector: string, tokens: Tokens, variation = "") =>
     insertRule(
-      sheet,
+      target,
       `${selector}{${mapTokens(
         tokens,
         (value, index) =>

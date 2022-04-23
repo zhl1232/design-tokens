@@ -9,7 +9,7 @@ function component() {
         <button class="color.bg.primary.60 size.l"></button>
         <button class="color.bg.primary.60 size.m"></button>
         <button class="color.bg.primary.60 size.s"></button>
-        <button class="color.bg.primary.60 size.xs"></button>
+        <button class="color.bg.secondary.60 size.xs"></button>
       </div>
     </host>
   );

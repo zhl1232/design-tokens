@@ -18,6 +18,9 @@ export const designTokens = compose(
           30: "red",
           10: "transparent",
         },
+        secondary: {
+          60: "@color.primary.60",
+        },
       },
       variation: {
         [`size=small`]: {

@@ -57,8 +57,12 @@ function applyTokens(
     insertRule(
       target,
       `${selector}{${mapTokens(tokens, (value, index) => {
-        const prop = `--${prefix}${variation ? "-" + variation : ""}--${index}`;
-        rootRule += `${prop}: ${value};`;
+        const namespace = `--${prefix}${variation ? "-" + variation : ""}`;
+        const prop = `${namespace}--${index}`;
+        rootRule += `${prop}: ${value.replace(
+          /@([\w\.]+)/,
+          (all, prop) => `var(${namespace}--${prop.replace(/\./g, "-")})`
+        )};`;
         return `--${index}:var(${prop});`;
       })}}`,
       i++

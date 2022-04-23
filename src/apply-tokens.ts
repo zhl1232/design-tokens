@@ -1,5 +1,7 @@
 import { insertRule } from "./utils";
 
+let Mark: Text;
+
 type TokenValue =
   | string
   | {
@@ -38,22 +40,30 @@ function applyTokens(
 ) {
   const { variation, media, ...currentTokens } = tokens;
   let i = 0;
-  const createRule = (selector: string, tokens: Tokens, variation = "") =>
+
+  const style = document.createElement("style");
+
+  if (!Mark) {
+    Mark = new Text();
+    document.head.prepend(Mark);
+  }
+
+  document.head.insertBefore(style, Mark);
+
+  let rootRule = "";
+  style.id = prefix;
+
+  const createRule = (selector: string, tokens: Tokens, variation = "") => {
     insertRule(
       target,
-      `${selector}{${mapTokens(
-        tokens,
-        (value, index) =>
-          `--${index}:${
-            prefix
-              ? `var(--${prefix}${
-                  variation ? "-" + variation : ""
-                }--${index}, ${value})`
-              : value
-          };`
-      )}}`,
+      `${selector}{${mapTokens(tokens, (value, index) => {
+        const prop = `--${prefix}${variation ? "-" + variation : ""}--${index}`;
+        rootRule += `${prop}: ${value};`;
+        return `--${index}:var(${prop});`;
+      })}}`,
       i++
     );
+  };
 
   const selector = ":host";
 
@@ -66,6 +76,8 @@ function applyTokens(
       prop.replace(/[^\w]+/g, "-")
     );
   }
+
+  insertRule(style, `:root{${rootRule}}`);
 
   return tokens;
 }

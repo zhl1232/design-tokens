@@ -45,10 +45,10 @@ The result of the CSS will be the following:
 
 ```css
 :host {
-  --size-xl: var(--ds--size-xl, 40px);
-  --size-l: var(--ds--size-l, 32px);
-  --size-m: var(--ds--size-m, 28px);
-  --size-s: var(--ds--size-s, 20px);
+  --size-xl: var(--ds--size-xl);
+  --size-l: var(--ds--size-l);
+  --size-m: var(--ds--size-m);
+  --size-s: var(--ds--size-s);
 }
 ```
 

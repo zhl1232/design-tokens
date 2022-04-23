@@ -1,20 +1,24 @@
 import { expect } from "@esm-bundle/chai";
-import { tokens } from "../src/apply-tokens";
+import { classes } from "../src/apply-classes";
 
 describe("tokens", () => {
   it("default", () => {
     const sheet = new CSSStyleSheet();
 
-    tokens(
-      {
-        size: {
-          xl: "10px",
-          l: "8px",
-          m: "4px",
-        },
+    //@ts-ignore
+    sheet.replaceSync(`
+    .gap.--size{
+        gap: var(--size);
+    }
+    `);
+
+    classes({
+      size: {
+        xl: "10px",
+        l: "8px",
+        m: "4px",
       },
-      "ds"
-    )(sheet);
+    })(sheet);
 
     const text = [...sheet.cssRules].reduce(
       (cssText, rule) => cssText + rule.cssText,
@@ -22,32 +26,29 @@ describe("tokens", () => {
     );
 
     expect(text).to.equal(
-      ":host { --size-xl:var(--ds--size-xl, 10px); --size-l:var(--ds--size-l, 8px); --size-m:var(--ds--size-m, 4px); }"
+      `.gap.--size { gap: var(--size); }.gap\\.xl { gap: var(--size-xl); }.gap\\.l { gap: var(--size-l); }.gap\\.m { gap: var(--size-m); }`
     );
   });
 
-  it("variations", () => {
+  it("deep 2", () => {
     const sheet = new CSSStyleSheet();
 
-    tokens(
-      {
-        size: {
-          xl: "10px",
-          l: "8px",
-          m: "4px",
-        },
-        variation: {
-          small: {
-            size: {
-              xl: "8px",
-              l: "6px",
-              m: "2px",
-            },
-          },
+    //@ts-ignore
+    sheet.replaceSync(`
+    .color.--color{
+        color: var(--color);
+    }
+    `);
+
+    classes({
+      color: {
+        primary: {
+          60: "black",
+          30: "red",
+          10: "orange",
         },
       },
-      "ds"
-    )(sheet);
+    })(sheet);
 
     const text = [...sheet.cssRules].reduce(
       (cssText, rule) => cssText + rule.cssText,
@@ -55,7 +56,34 @@ describe("tokens", () => {
     );
 
     expect(text).to.equal(
-      `:host { --size-xl:var(--ds--size-xl, 10px); --size-l:var(--ds--size-l, 8px); --size-m:var(--ds--size-m, 4px); }:host([small]) { --size-xl:var(--ds-small--size-xl, 8px); --size-l:var(--ds-small--size-l, 6px); --size-m:var(--ds-small--size-m, 2px); }`
+      `.color.--color { color: var(--color); }.color\\.primary\\.10 { color: var(--color-primary-10); }.color\\.primary\\.30 { color: var(--color-primary-30); }.color\\.primary\\.60 { color: var(--color-primary-60); }`
+    );
+  });
+
+  it("media", () => {
+    const sheet = new CSSStyleSheet();
+
+    //@ts-ignore
+    sheet.replaceSync(`
+    .show{
+        display: block;
+    }
+    `);
+
+    classes({
+      media: {
+        xl: "(min-width: 820px)",
+        l: "(min-width: 520px)",
+      },
+    })(sheet);
+
+    const text = [...sheet.cssRules].reduce(
+      (cssText, rule) => cssText + rule.cssText,
+      ""
+    );
+
+    expect(text.replace(/\n/g, "")).to.equal(
+      `.show { display: block; }@media (min-width: 820px) {  .show\\:xl { display: block; }}@media (min-width: 520px) {  .show\\:l { display: block; }}`
     );
   });
 });

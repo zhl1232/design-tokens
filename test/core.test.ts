@@ -34,7 +34,7 @@ describe("tokens", () => {
     );
 
     expect(text).to.equal(
-      `:host { --size-xl:var(--ds--size-xl, 10px); --size-l:var(--ds--size-l, 8px); --size-m:var(--ds--size-m, 4px); }.gap.--size { gap: var(--size); }.gap\\.xl { gap: var(--size-xl); }.gap\\.l { gap: var(--size-l); }.gap\\.m { gap: var(--size-m); }`
+      String.raw`:host { --size-xl:var(--ds--size-xl); --size-l:var(--ds--size-l); --size-m:var(--ds--size-m); }.gap.--size { gap: var(--size); }.gap\.xl { gap: var(--size-xl); }.gap\.l { gap: var(--size-l); }.gap\.m { gap: var(--size-m); }`
     );
   });
 });

@@ -60,7 +60,7 @@ function applyTokens(
         const namespace = `--${prefix}${variation ? "-" + variation : ""}`;
         const prop = `${namespace}--${index}`;
         rootRule += `${prop}: ${value.replace(
-          /@([\w\.]+)/,
+          /@([\w\.]+)/g,
           (all, prop) => `var(${namespace}--${prop.replace(/\./g, "-")})`
         )};`;
         return `--${index}:var(${prop});`;

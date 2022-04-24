@@ -59,10 +59,12 @@ function applyTokens(
       `${selector}{${mapTokens(tokens, (value, index) => {
         const namespace = `--${prefix}${variation ? "-" + variation : ""}`;
         const prop = `${namespace}--${index}`;
-        rootRule += `${prop}: ${value.replace(
-          /@([\w\.]+)/g,
-          (all, prop) => `var(${namespace}--${prop.replace(/\./g, "-")})`
-        )};`;
+        rootRule += `${prop}: ${value.replace(/@([\w\.]+)/g, (all, prop) => {
+          const value = `--${prop.replace(/\./g, "-")}`;
+          return variation
+            ? `var(${namespace}${value}, var(--${prefix}${value}))`
+            : `var(${namespace}${value})`;
+        })};`;
         return `--${index}:var(${prop});`;
       })}}`,
       i++

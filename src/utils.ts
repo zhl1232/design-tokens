@@ -1,6 +1,8 @@
 let sandbox: HTMLIFrameElement;
 
-export function getSheet(style: CSSStyleSheet | HTMLStyleElement) {
+export function getSheet(
+  style: CSSStyleSheet | HTMLStyleElement
+): CSSStyleSheet {
   if (style instanceof CSSStyleSheet) {
     return style;
   }
@@ -10,8 +12,8 @@ export function getSheet(style: CSSStyleSheet | HTMLStyleElement) {
   }
 
   if (!sandbox) {
-    sandbox = document.createElement("iframe");
-    sandbox.style.display = "none";
+    sandbox = document.createElement('iframe');
+    sandbox.style.display = 'none';
     document.body.appendChild(sandbox);
   }
 
